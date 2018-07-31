@@ -8,8 +8,8 @@
    'version'     => 'latest',
    'region'      => 'ap-southeast-1',
    'credentials' => [
-     'key'    => 'AKIAICAI3MUBA2RFAZHQ',
-     'secret' => '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',
+     'key'    => '',
+     'secret' => '',
    ],
   ]);
 
