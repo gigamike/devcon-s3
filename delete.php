@@ -1,5 +1,5 @@
 <?php
-  require $_SERVER["DOCUMENT_ROOT"] . '/vendor/autoload.php';
+  require $_SERVER["DOCUMENT_ROOT"] . '/sdk/vendor/autoload.php';
 
   $s3Client = new \Aws\S3\S3Client([
    'version'     => 'latest',

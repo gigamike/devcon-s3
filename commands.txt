@@ -7,7 +7,6 @@ php -r "unlink('composer-setup.php');"
 vi composer.json
 php -d memory_limit=-1 composer.phar require aws/aws-sdk-php
 
-
 Bucket Policy Public
 {
     "Version": "2012-10-17",

@@ -2,7 +2,7 @@
   // https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/welcome.html
   // https://docs.aws.amazon.com/aws-sdk-php/v3/api/
 
-  require $_SERVER["DOCUMENT_ROOT"] . '/vendor/autoload.php';
+  require $_SERVER["DOCUMENT_ROOT"] . '/sdk/vendor/autoload.php';
 
   $s3Client = new \Aws\S3\S3Client([
    'version'     => 'latest',
@@ -31,14 +31,12 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Devcon AWS CodeCamp</title>
   </head>
   <body>
     <main role="main" class="container">
@@ -54,22 +52,23 @@
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($result['Contents'] as $object): ?>
-            <tr>
-              <th scope="row"><a href="https://s3-ap-southeast-1.amazonaws.com/devcon-sdk/<?php echo $object['Key']; ?>" target="_blank"><?php echo $object['Key']; ?></th>
-              <td><?php echo date('Y-m-d H:i:s', strtotime($object['LastModified'])); ?></td>
-              <td><?php echo human_filesize($object['Size']); ?></td>
-                <th scope="row"><a href="delete.php?keyname=<?php echo $object['Key']; ?>">Delete</th>
-            </tr>
-          <?php endforeach; ?>
+            <?php if(isset($result['Contents']) && count($result['Contents']) > 0): ?>
+              <?php foreach ($result['Contents'] as $object): ?>
+              <tr>
+                <th scope="row"><a href="https://s3-ap-southeast-1.amazonaws.com/devcon-sdk/<?php echo $object['Key']; ?>" target="_blank"><?php echo $object['Key']; ?></th>
+                <td><?php echo date('Y-m-d H:i:s', strtotime($object['LastModified'])); ?></td>
+                <td><?php echo human_filesize($object['Size']); ?></td>
+                  <th scope="row"><a href="delete.php?keyname=<?php echo $object['Key']; ?>">Delete</th>
+              </tr>
+            <?php endforeach; ?>
+          <?php endif; ?>
           </tbody>
         </table>
 
       </div>
       <a href="upload.php">Add File</a>
     </main>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
